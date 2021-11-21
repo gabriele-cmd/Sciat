@@ -55,6 +55,10 @@ public class ThreadMap {
     }
 
     public void globale(String username, String messaggio) throws Exception{//invio messaggio globale
+        if(threadMap.size() == 1 && threadMap.containsKey(username)){
+            threadMap.get(username).invia("SERVER: Sei l'unico utente connesso!");
+            return;
+        }
         for(String i : threadMap.keySet()){
             if (i == username){//il client che invia il messaggio globale non deve ricevere a sua volta il messaggio stesso!
                 continue;
