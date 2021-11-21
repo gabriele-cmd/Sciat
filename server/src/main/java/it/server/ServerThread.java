@@ -34,11 +34,12 @@ public class ServerThread extends Thread{
         try {
             outVersoClient = new DataOutputStream(client.getOutputStream()); //Inizializzo flusso VERSO client
             inDalClient = new BufferedReader(new InputStreamReader(client.getInputStream())); //Inizializzo flusso DAL client
+            outVersoClient.writeBytes("Inserire un Username: (caratteri validi: A-Z/a-z/0-9)");
             String controllo;
             do{
                 usernameClient = inDalClient.readLine(); //Leggo il NOME inserito da TASTIERA con readLine()
                 controllo = threadMap.connessioneClient(usernameClient, this);
-                
+
                 if(controllo.equals("esistente")){//controllo se l'Username scelto è GIA PRESENTE tra i client connessi
                     System.out.println("SERVER: Errore! l'Username inserito è già in utilizzo, riprova..." + '\n');
 
