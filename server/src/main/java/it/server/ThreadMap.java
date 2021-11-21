@@ -31,7 +31,6 @@ public class ThreadMap {
     public void disconnessioneClient(String username, ServerThread server) throws Exception{//disconnessione e rimozione di un client con conseguente aggiornamento della lista
         threadMap.remove(username, server);
         globale (username, "SERVER: " + username + " ha abbandonato il gruppo");
-        //aggLista(); //lista che dovrebbe essere inviata a ogni connessione/disconnessione
         lista();
     }
 
@@ -43,10 +42,6 @@ public class ThreadMap {
                 threadMap.get(client).invia(lista);
             }
         }
-    }
-
-    public void notificaConnessione(){//notifica TUTTI i Client che un nuovo utente si è CONNESSO
-
     }
 
     public String lista(){//creazione necessaria e aggiornamento della lista di utenti connessi

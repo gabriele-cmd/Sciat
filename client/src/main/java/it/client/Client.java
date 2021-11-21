@@ -31,7 +31,7 @@ public class Client {
         return socket;
     }
 
-    public void comunica(){//INVIO messaggi al SERVER
+    public void comunica(){//gestisco la CONNESSIONE con il SERVER
         listener = new Thread(new ClientListener(inputDalServer, socket));
         listener.start();//utilizzo il Thread per inviare messaggi
     }
@@ -43,7 +43,7 @@ public class Client {
         return stringaInDalServer;
     }
 
-    public void invia(String mexInvio) throws IOException{
+    public void invia(String mexInvio) throws IOException{//INVIO messaggi al SERVER
         if(mexInvio.equals("/exit")){
             outputVersoServer.writeBytes("/exit" + "\n");
             socket.close();

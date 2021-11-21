@@ -44,7 +44,6 @@ public class ServerThread extends Thread{
             }while(!controllo.equals("ok"));
 
             outVersoClient.writeBytes("SERVER: Username scelto!" + '\n');
-            //threadMap.aggLista();//AGGIORNAMENTO lista con conseguente notifica a tutti i Client
             threadMap.globale(usernameClient, "SERVER: " + usernameClient + "si è unito al gruppo!");
             threadMap.lista(); //eseguo aggiornamento sulla LISTA
         } 

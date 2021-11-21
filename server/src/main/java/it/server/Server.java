@@ -18,7 +18,7 @@ public class Server {
         }
         catch (Exception e){
             System.out.println(e.getMessage());
-            System.out.println("Errore durante l'istanza del server !");
+            System.out.println("Errore durante l'istanza del server!");
             System.exit(1);
         }
     }
