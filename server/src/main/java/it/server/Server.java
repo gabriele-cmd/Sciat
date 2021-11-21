@@ -8,7 +8,7 @@ public class Server {
     public void start(){
         ThreadMap threadMap = new ThreadMap();//creazione dell'HashMap per gestire i thread del server
         try{
-            ServerSocket serverSocket = new ServerSocket(6789);//BIND della porta
+            ServerSocket serverSocket = new ServerSocket(3456);//BIND della porta
             for(;;){
                 Socket socket = serverSocket.accept(); //In ATTESA di comunicazione con il CLIENT
                 System.out.println("Connessione di " + socket);

@@ -19,10 +19,9 @@ public class ServerThread extends Thread{
     }
 
     public void run(){  //Il metodo RUN del THREAD si limita solo a richiamare il metodo COMUNICA() che avvia la comunicazione con il CLIENT
-
         try{
-            comunica();
             connetti();
+            comunica();
         }
         catch(Exception e){
             e.printStackTrace(System.out);
