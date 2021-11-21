@@ -16,7 +16,6 @@ public class Client {
     public Socket connetti(){//CONNESSIONE alla PORTA del SERVER
         try {
             socket = new Socket(nomeServer, portaServer);//APERTURA canale di comunicazione
-            inputDalServer = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             outputVersoServer = new DataOutputStream(socket.getOutputStream());
 
         } catch (UnknownHostException e) {
@@ -32,8 +31,9 @@ public class Client {
     }
 
     public void comunica(){//gestisco la CONNESSIONE con il SERVER
-        listener = new Thread(new ClientListener(inputDalServer, socket));
+        listener = new Thread(new ClientListener(socket));
         listener.start();//utilizzo il Thread per inviare messaggi
+        System.out.println("test");
     }
 
     public String setUsername (String username) throws IOException{

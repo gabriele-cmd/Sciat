@@ -34,6 +34,7 @@ public class ServerThread extends Thread{
             outVersoClient = new DataOutputStream(client.getOutputStream()); //Inizializzo flusso VERSO client
             inDalClient = new BufferedReader(new InputStreamReader(client.getInputStream())); //Inizializzo flusso DAL client
             outVersoClient.writeBytes("Inserire un Username: (caratteri validi: A-Z/a-z/0-9)");
+            System.out.println("test");
             String controllo;
             do{
                 usernameClient = inDalClient.readLine(); //Leggo il NOME inserito da TASTIERA con readLine()
