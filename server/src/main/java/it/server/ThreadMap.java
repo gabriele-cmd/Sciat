@@ -8,10 +8,6 @@ public class ThreadMap {
 
     HashMap<String, ServerThread> threadMap = new HashMap<String, ServerThread>();
 
-    public ThreadMap(){
-
-    }
-
     public String connessioneClient (String username, ServerThread server){//connessione e aggiunta di un client
         Pattern pattern = Pattern.compile("[^a-z0-9]", Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(username);
@@ -23,6 +19,11 @@ public class ThreadMap {
         if(threadMap.putIfAbsent(username, server) != null){
             return "esistente";
         }
+
+        username.replace(" ", ""); //mi assicuro di rimuovere tutti gli spazi vuoti per controllare che l'utente non abbia inserito un username del tipo "      "
+            if(username.isEmpty()){
+                return "vuoto";
+            }
         
         return "ok";
         
@@ -55,7 +56,7 @@ public class ThreadMap {
     }
 
     public void globale(String username, String messaggio) throws Exception{//invio messaggio globale
-        if(threadMap.size() == 1 && threadMap.containsKey(username)){
+        if(threadMap.size() == 1 && threadMap.containsKey(username)){//In caso l'utente che invia il messaggio è SOLO, il messaggio NON verrà INOLTRATO
             threadMap.get(username).invia("SERVER: Sei l'unico utente connesso!");
             return;
         }
@@ -63,7 +64,7 @@ public class ThreadMap {
             if (i == username){//il client che invia il messaggio globale non deve ricevere a sua volta il messaggio stesso!
                 continue;
             }else{
-                threadMap.get(i).invia(messaggio);
+                threadMap.get(i).invia(username + ": " + messaggio);
             }
         }
     }

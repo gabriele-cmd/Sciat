@@ -38,14 +38,22 @@ public class ServerThread extends Thread{
             do{
                 usernameClient = inDalClient.readLine(); //Leggo il NOME inserito da TASTIERA con readLine()
                 controllo = threadMap.connessioneClient(usernameClient, this);
+                
                 if(controllo.equals("esistente")){//controllo se l'Username scelto è GIA PRESENTE tra i client connessi
                     System.out.println("SERVER: Errore! l'Username inserito è già in utilizzo, riprova..." + '\n');
+
+                }else if(controllo.equals("simboli presenti")){//controllo non siano presenti simboli
+                    System.out.println("SERVER: Errore! L'Username NON può contenere caratteri speciali. Si prega di Scegliere un Username contenente solo caratteri da A-Z/a-z o numeri compresi tra 0-9");
+
+                }else if(controllo.equals("vuoto")){//controllo che il nome scelto non sia vuoto
+                    System.out.println("SERVER: Errore! L'Username scelto non presenta caratteri, è VUOTO! Riprova...");
                 }
             }while(!controllo.equals("ok"));
 
             outVersoClient.writeBytes("SERVER: Username scelto!" + '\n');
             threadMap.globale(usernameClient, "SERVER: " + usernameClient + "si è unito al gruppo!");
             threadMap.lista(); //eseguo aggiornamento sulla LISTA
+            threadMap.invioLista(usernameClient); //Invio la LISTA SOLO al Client che si è APPENA CONNESSO per informarlo sugli utenti al momento connessi alla chat
         } 
         
         catch (IOException e) {
