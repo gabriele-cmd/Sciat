@@ -64,7 +64,12 @@ public class ThreadMap {
             if (i == username){//il client che invia il messaggio globale non deve ricevere a sua volta il messaggio stesso!
                 continue;
             }else{
-                threadMap.get(i).invia(username + ": " + messaggio);
+                String[] controllo = messaggio.split(" ");
+                if(controllo[0].equals("SERVER:")){
+                    threadMap.get(i).invia(messaggio);
+                }else{
+                    threadMap.get(i).invia(username + ": " + messaggio);
+                }
             }
         }
     }

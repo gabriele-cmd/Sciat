@@ -10,13 +10,15 @@ public class Client {
     String stringaInDalServer;
     DataOutputStream outputVersoServer;
     BufferedReader inputDalServer;
+    BufferedReader tastiera; //INPUT da tastiera
     private Thread listener;//THREAD che gestisce la RICEZIONE dei messaggi
-    private Socket socket; //canale di comunicazione
+    Socket socket; //canale di comunicazione
 
     public Socket connetti(){//CONNESSIONE alla PORTA del SERVER
         try {
             socket = new Socket(nomeServer, portaServer);//APERTURA canale di comunicazione
             outputVersoServer = new DataOutputStream(socket.getOutputStream());
+            tastiera = new BufferedReader(new InputStreamReader(System.in));
 
         } catch (UnknownHostException e) {
             System.err.println("Host sconosciuto");
@@ -30,10 +32,10 @@ public class Client {
         return socket;
     }
 
-    public void comunica(){//gestisco la CONNESSIONE con il SERVER
-        listener = new Thread(new ClientListener(socket));
+    public void comunica() throws IOException{//gestisco la CONNESSIONE con il SERVER
+        listener = new ClientListener(socket);
         listener.start();//utilizzo il Thread per inviare messaggi
-        System.out.println("test");
+        invia();
     }
 
     public String setUsername (String username) throws IOException{
@@ -43,7 +45,8 @@ public class Client {
         return stringaInDalServer;
     }
 
-    public void invia(String mexInvio) throws IOException{//INVIO messaggi al SERVER
+    public void invia() throws IOException{//INVIO messaggi al SERVER
+        String mexInvio = tastiera.readLine();
         if(mexInvio.equals("/exit")){
             outputVersoServer.writeBytes("/exit" + "\n");
             socket.close();
