@@ -39,6 +39,7 @@ public class Client {
     }
 
     public String setUsername (String username) throws IOException{
+        stringaInDalServer = inputDalServer.readLine(); //LEGGO la RISPOSTA del server
         outputVersoServer.writeBytes(username + '\n');//INVIO l'username scelto
         stringaInDalServer = inputDalServer.readLine(); //LEGGO la RISPOSTA del server
 

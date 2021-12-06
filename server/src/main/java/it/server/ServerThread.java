@@ -40,7 +40,7 @@ public class ServerThread extends Thread{
                 controllo = threadMap.connessioneClient(usernameClient, this);
 
                 if(controllo.equals("esistente")){//controllo se l'Username scelto è GIA PRESENTE tra i client connessi
-                    outVersoClient.writeBytes("SERVER: Errore! l'Username inserito è già in utilizzo, riprova..." + '\n');
+                    outVersoClient.writeBytes("SERVER: Errore! l'Username inserito e' gia' in utilizzo, riprova..." + '\n');
 
                 }else if(controllo.equals("simboli presenti")){//controllo non siano presenti simboli
                     outVersoClient.writeBytes("SERVER: Errore! L'Username NON può contenere caratteri speciali. Si prega di Scegliere un Username contenente solo caratteri da A-Z/a-z o numeri compresi tra 0-9");
@@ -83,6 +83,7 @@ public class ServerThread extends Thread{
                             outVersoClient.close();
                             inDalClient.close();
                             client.close();
+                            threadMap.disconnessioneClient(usernameClient, this);
                             break;
                         default: //in caso un utente inserisca "//" il messaggio dovrà comunque essere mandato in GLOBALE
                             String str = mexRicevuto.replace(" ", ""); //mi assicuro di rimuovere tutti gli spazi vuoti per controllare che l'utente non abbia inserito un messaggio del tipo "      "
